@@ -1,0 +1,358 @@
+{
+  "entities": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator registry record.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User account profile with isolated access.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "email": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "language": { "type": "string", "enum": ["ne", "en"], "minLength": 2, "maxLength": 5 },
+        "role": { "type": "string", "enum": ["user", "seller", "admin"], "minLength": 4, "maxLength": 10 },
+        "notificationsEnabled": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "district", "language", "role", "notificationsEnabled", "createdAt", "updatedAt"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category in Nepali and English.",
+      "type": "object",
+      "properties": {
+        "nameNe": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "nameEn": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "slug": { "type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "iconName": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "sortOrder": { "type": "integer" },
+        "visibility": { "type": "string", "enum": ["public", "hidden"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nameNe", "nameEn", "slug", "iconName", "sortOrder", "visibility", "createdAt", "updatedAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Nepal market product item with estimated, seller, and user-reported price statistics.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "nameNe": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "brand": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "categoryId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "categoryName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "imageUrl": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "minPrice": { "type": "number" },
+        "maxPrice": { "type": "number" },
+        "avgPrice": { "type": "number" },
+        "priceSource": { "type": "string", "enum": ["Estimated", "Seller Price", "User Reported"], "minLength": 9, "maxLength": 20 },
+        "confidenceScore": { "type": "number" },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "featured": { "type": "boolean" },
+        "sponsored": { "type": "boolean" },
+        "visibility": { "type": "string", "enum": ["public", "hidden"], "minLength": 6, "maxLength": 10 },
+        "createdBy": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "nameNe", "brand", "model", "categoryId", "categoryName", "imageUrl", "minPrice", "maxPrice", "avgPrice", "priceSource", "confidenceScore", "district", "featured", "sponsored", "visibility", "createdBy", "createdAt", "updatedAt"]
+    },
+    "Seller": {
+      "title": "Seller",
+      "description": "Public seller shop profile in Nepal.",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "shopName": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "marketArea": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "categoryFocus": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "verified": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"], "minLength": 7, "maxLength": 10 },
+        "visibility": { "type": "string", "enum": ["public", "hidden"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "shopName", "district", "marketArea", "categoryFocus", "verified", "status", "visibility", "createdAt", "updatedAt"]
+    },
+    "SellerPrivate": {
+      "title": "SellerPrivate",
+      "description": "Isolated private PII contact information for a seller.",
+      "type": "object",
+      "properties": {
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "sellerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "phone": { "type": "string", "minLength": 7, "maxLength": 20 },
+        "email": { "type": "string", "format": "email", "minLength": 3, "maxLength": 254 },
+        "panNumber": { "type": "string", "minLength": 1, "maxLength": 30 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerId", "sellerId", "phone", "email", "panNumber", "createdAt", "updatedAt"]
+    },
+    "SellerProduct": {
+      "title": "SellerProduct",
+      "description": "Product price listing offered by a seller.",
+      "type": "object",
+      "properties": {
+        "sellerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "shopName": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "verifiedSeller": { "type": "boolean" },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productName": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "price": { "type": "number" },
+        "stockStatus": { "type": "string", "enum": ["in_stock", "limited", "out_of_stock"], "minLength": 7, "maxLength": 15 },
+        "inquiryPhoneHint": { "type": "string", "minLength": 4, "maxLength": 30 },
+        "visibility": { "type": "string", "enum": ["public", "hidden"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sellerId", "ownerId", "shopName", "district", "verifiedSeller", "productId", "productName", "price", "stockStatus", "inquiryPhoneHint", "visibility", "createdAt", "updatedAt"]
+    },
+    "PriceReport": {
+      "title": "PriceReport",
+      "description": "User-submitted actual price paid report in Nepal.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productName": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "pricePaid": { "type": "number" },
+        "quantity": { "type": "integer" },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "shopName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "purchaseDate": { "type": "string", "minLength": 4, "maxLength": 30 },
+        "receiptUrl": { "type": "string", "minLength": 0, "maxLength": 500 },
+        "status": { "type": "string", "enum": ["approved", "pending", "flagged", "rejected"], "minLength": 7, "maxLength": 10 },
+        "visibility": { "type": "string", "enum": ["public", "hidden"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "productId", "productName", "pricePaid", "quantity", "district", "shopName", "purchaseDate", "receiptUrl", "status", "visibility", "createdAt", "updatedAt"]
+    },
+    "PriceHistory": {
+      "title": "PriceHistory",
+      "description": "Historical price point for a product.",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "dateLabel": { "type": "string", "minLength": 4, "maxLength": 30 },
+        "minPrice": { "type": "number" },
+        "avgPrice": { "type": "number" },
+        "maxPrice": { "type": "number" },
+        "sourceType": { "type": "string", "enum": ["Estimated", "Seller Price", "User Reported"], "minLength": 9, "maxLength": 20 },
+        "sampleCount": { "type": "integer" },
+        "visibility": { "type": "string", "enum": ["public", "hidden"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "dateLabel", "minPrice", "avgPrice", "maxPrice", "sourceType", "sampleCount", "visibility", "createdAt"]
+    },
+    "SavedProduct": {
+      "title": "SavedProduct",
+      "description": "User saved product with price change tracking.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productName": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "brand": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "imageUrl": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "savedAtPrice": { "type": "number" },
+        "currentAvgPrice": { "type": "number" },
+        "alertEnabled": { "type": "boolean" },
+        "targetAlertPrice": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "productId", "productName", "brand", "imageUrl", "savedAtPrice", "currentAvgPrice", "alertEnabled", "targetAlertPrice", "createdAt", "updatedAt"]
+    },
+    "PriceAlert": {
+      "title": "PriceAlert",
+      "description": "User price drop notification threshold.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productName": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "targetPrice": { "type": "number" },
+        "currentAvgPrice": { "type": "number" },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "status": { "type": "string", "enum": ["active", "triggered", "paused"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "productId", "productName", "targetPrice", "currentAvgPrice", "district", "status", "createdAt", "updatedAt"]
+    },
+    "Receipt": {
+      "title": "Receipt",
+      "description": "User scanned bill/receipt record.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "shopName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "billDate": { "type": "string", "minLength": 4, "maxLength": 30 },
+        "totalAmount": { "type": "number" },
+        "itemsCount": { "type": "integer" },
+        "summaryText": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["saved", "submitted"], "minLength": 5, "maxLength": 12 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "shopName", "district", "billDate", "totalAmount", "itemsCount", "summaryText", "status", "createdAt", "updatedAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification or broadcast announcement.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "titleNe": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "titleEn": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "bodyNe": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "bodyEn": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "type": { "type": "string", "enum": ["price_drop", "price_alert", "seller_update", "announcement"], "minLength": 10, "maxLength": 15 },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "isRead": { "type": "boolean" },
+        "visibility": { "type": "string", "enum": ["public", "private"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "titleNe", "titleEn", "bodyNe", "bodyEn", "type", "productId", "isRead", "visibility", "createdAt", "updatedAt"]
+    },
+    "Advertisement": {
+      "title": "Advertisement",
+      "description": "AdMob unit and sponsored placement configuration.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "placement": { "type": "string", "enum": ["home_banner", "search_interstitial", "history_rewarded", "sponsored_card"], "minLength": 10, "maxLength": 25 },
+        "adType": { "type": "string", "enum": ["banner", "interstitial", "rewarded", "sponsored"], "minLength": 6, "maxLength": 15 },
+        "adUnitId": { "type": "string", "minLength": 5, "maxLength": 120 },
+        "sponsorName": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "ctaUrl": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "isActive": { "type": "boolean" },
+        "impressionsCount": { "type": "integer" },
+        "clicksCount": { "type": "integer" },
+        "visibility": { "type": "string", "enum": ["public", "hidden"], "minLength": 6, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "placement", "adType", "adUnitId", "sponsorName", "ctaUrl", "isActive", "impressionsCount", "clicksCount", "visibility", "createdAt", "updatedAt"]
+    },
+    "FlagReport": {
+      "title": "FlagReport",
+      "description": "User report of inaccurate price or suspicious listing.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "productName": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "reportedPrice": { "type": "number" },
+        "reason": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "details": { "type": "string", "minLength": 2, "maxLength": 500 },
+        "status": { "type": "string", "enum": ["open", "resolved", "dismissed"], "minLength": 4, "maxLength": 10 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "productId", "productName", "reportedPrice", "reason", "details", "status", "createdAt", "updatedAt"]
+    },
+    "AnalyticsEvent": {
+      "title": "AnalyticsEvent",
+      "description": "Application analytics event telemetry.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "eventType": { "type": "string", "enum": ["search", "product_view", "scanner_use", "price_report", "seller_register", "save_product", "ad_impression", "ad_click"], "minLength": 5, "maxLength": 20 },
+        "targetId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "district": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "metadata": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "eventType", "targetId", "district", "metadata", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Administrator user IDs."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User account profiles with owner/admin-only read access."
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Manageable Nepal product categories."
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Product catalog with price ranges and sources."
+    },
+    "/sellers/{sellerId}": {
+      "schema": { "$ref": "#/entities/Seller" },
+      "description": "Public seller profiles."
+    },
+    "/sellers/{sellerId}/private/{infoId}": {
+      "schema": { "$ref": "#/entities/SellerPrivate" },
+      "description": "Isolated PII contact info for sellers."
+    },
+    "/seller_products/{sellerProductId}": {
+      "schema": { "$ref": "#/entities/SellerProduct" },
+      "description": "Seller price listings for specific products."
+    },
+    "/price_reports/{reportId}": {
+      "schema": { "$ref": "#/entities/PriceReport" },
+      "description": "User-submitted prices paid in Nepal."
+    },
+    "/price_history/{historyId}": {
+      "schema": { "$ref": "#/entities/PriceHistory" },
+      "description": "Historical price points for charts."
+    },
+    "/saved_products/{savedId}": {
+      "schema": { "$ref": "#/entities/SavedProduct" },
+      "description": "User bookmarked products."
+    },
+    "/price_alerts/{alertId}": {
+      "schema": { "$ref": "#/entities/PriceAlert" },
+      "description": "User price-drop alert subscriptions."
+    },
+    "/receipts/{receiptId}": {
+      "schema": { "$ref": "#/entities/Receipt" },
+      "description": "AI-extracted bill and receipt records."
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "User notifications and price-drop alerts."
+    },
+    "/advertisements/{adId}": {
+      "schema": { "$ref": "#/entities/Advertisement" },
+      "description": "AdMob and sponsored banner configurations."
+    },
+    "/reports/{flagId}": {
+      "schema": { "$ref": "#/entities/FlagReport" },
+      "description": "Reports of inaccurate prices or suspicious submissions."
+    },
+    "/analytics/{eventId}": {
+      "schema": { "$ref": "#/entities/AnalyticsEvent" },
+      "description": "Application usage and ad analytics."
+    }
+  }
+}

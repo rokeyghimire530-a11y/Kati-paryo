@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Kati Paryo?</string>
+    <string name="app_tagline">सामान किन्नुअघि, मूल्य थाहा पाऔँ।</string>
+    <string name="search_hint">कुन सामानको मूल्य जान्न चाहनुहुन्छ?</string>
+    <string name="scan_photo">फोटोबाट खोज्नुहोस्</string>
+    <string name="scan_bill">बिल / रसिद स्क्यान</string>
+    <string name="nav_home">गृहपृष्ठ</string>
+    <string name="nav_search">खोज्नुहोस्</string>
+    <string name="nav_scan">स्क्यान</string>
+    <string name="nav_saved">सेभ</string>
+    <string name="nav_profile">प्रोफाइल</string>
+    <string name="estimated_price">अनुमानित बजार मूल्य</string>
+    <string name="seller_price">पसलको मूल्य</string>
+    <string name="user_reported">ग्राहकले तिरेको मूल्य</string>
+    <string name="verified_seller">प्रमाणित पसल</string>
+    <string name="unverified_seller">सामान्य विक्रेता</string>
+    <string name="price_history">मूल्यको इतिहास</string>
+    <string name="submit_price">आफूले तिरेको मूल्य पठाउनुहोस्</string>
+    <string name="price_alert">मूल्य घटेमा जानकारी पाउनुहोस्</string>
+    <string name="admob_banner_desc">Google AdMob Advertisement</string>
+</resources>

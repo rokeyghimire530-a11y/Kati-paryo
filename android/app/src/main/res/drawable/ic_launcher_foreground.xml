@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Inner subtle circle -->
+    <path
+        android:fillColor="#7F1D1D"
+        android:pathData="M54,18 A36,36 0 1,1 53.99,18 Z"/>
+    <!-- Price Tag Shape -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M66,35 L42,35 C39.8,35 38,36.8 38,39 L38,69 C38,71.2 39.8,73 42,73 L66,73 C68.2,73 70,71.2 70,69 L70,39 C70,36.8 68.2,35 66,35 Z"/>
+    <!-- Price Badge Tag top loop -->
+    <path
+        android:fillColor="#B91C1C"
+        android:pathData="M54,43 A4,4 0 1,1 53.99,43 Z"/>
+    <!-- Rupee / Price lines -->
+    <path
+        android:strokeColor="#B91C1C"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M48,51 L60,51 M48,56 L58,56 M48,51 L53,65 M53,56 C57,56 59,53 57,51"/>
+</vector>

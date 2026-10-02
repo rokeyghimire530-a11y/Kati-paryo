@@ -1,0 +1,6 @@
+{
+  "name": "Kati Paryo?",
+  "description": "सामान किन्नुअघि, मूल्य थाहा पाऔँ। Nepal Market Price Finder, AI Product & Bill Scanner, Seller Price Comparison, and Price History Tracker.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
